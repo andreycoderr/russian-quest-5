@@ -23,8 +23,8 @@
   body{
     font-family:'Nunito',sans-serif; color:var(--ink);
     background:var(--paper);
-    min-height:100vh; display:flex; align-items:center; justify-content:center;
-    padding:18px 18px 96px; overflow-x:hidden; position:relative;
+    min-height:100vh; display:flex; align-items:safe center; justify-content:center;
+    padding:24px 18px 96px; overflow-x:hidden; position:relative;
   }
 
   /* ---------- animated background ---------- */
@@ -138,6 +138,17 @@
   .btn:active{transform:translateY(-1px) scale(.99)}
   .btn.block{display:flex; margin:26px auto 0}
   .btn.gold{background:linear-gradient(135deg,#ffd454,var(--gold) 60%,var(--gold-dk));color:var(--navy)}
+
+  /* home / back button */
+  .home-btn{display:inline-flex;align-items:center;gap:8px;cursor:pointer;flex:0 0 auto;
+    font-family:'Nunito',sans-serif;font-weight:800;font-size:14px;color:var(--navy);
+    background:linear-gradient(135deg,rgba(255,255,255,.92),rgba(255,255,255,.65));
+    border:1px solid rgba(234,217,181,.95);padding:10px 16px;border-radius:999px;
+    box-shadow:0 5px 14px rgba(18,40,63,.08);transition:transform .15s, box-shadow .2s, background .2s}
+  .home-btn:hover{transform:translateY(-2px);background:#fff;box-shadow:0 9px 20px rgba(18,40,63,.15)}
+  .home-btn:active{transform:translateY(0)}
+  .home-btn svg{width:16px;height:16px}
+  .hud-left{display:flex;align-items:center;gap:12px;min-width:0}
 
   /* ---------- Telegram CTA banner ---------- */
   .tg-banner{margin:22px auto 0;max-width:620px;cursor:pointer;text-decoration:none;display:block;
@@ -287,6 +298,8 @@
     .tg-banner-inner{padding:14px 14px;gap:12px}
     .tg-banner .tg-go{display:none}
     .tg-fab{font-size:13.5px;padding:11px 18px}
+    .home-btn{padding:9px 11px}
+    .home-btn .lbl{display:none}
   }
   @media (prefers-reduced-motion:reduce){
     *{animation-duration:.001ms !important;animation-iteration-count:1 !important}
@@ -327,19 +340,6 @@
         <div class="rule"><span class="dot">3</span><span>Станции открываются по очереди. Цель – собрать максимум звёзд!</span></div>
       </div>
       <button class="btn block" onclick="showMap()">Начать квест →</button>
-
-      <a class="tg-banner" href="https://t.me/ArinaGalitskaya" target="_blank" rel="noopener">
-        <div class="tg-banner-inner">
-          <span class="tg-ic">
-            <svg viewBox="0 0 24 24" fill="#fff"><path d="M21.9 4.3l-3.2 15.1c-.2 1-.9 1.3-1.8.8l-5-3.7-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.6 13l-4.8-1.5c-1-.3-1-1 .2-1.5l18.7-7.2c.9-.3 1.6.2 1.3 1.5z"/></svg>
-          </span>
-          <span class="tg-txt">
-            <b>Записаться на занятие с Ариной</b>
-            <span>Персональные уроки русского языка · Telegram</span>
-          </span>
-          <span class="tg-go">Написать →</span>
-        </div>
-      </a>
     </div>
   </section>
 
@@ -347,7 +347,13 @@
   <section id="screen-map" class="screen">
     <div class="frame">
       <div class="hud">
-        <div class="ttl">Карта квеста</div>
+        <div class="hud-left">
+          <button class="home-btn" onclick="goHome()" title="Вернуться на главную">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
+            <span class="lbl">В начало</span>
+          </button>
+          <div class="ttl">Карта квеста</div>
+        </div>
         <div class="stars-hud"><svg viewBox="0 0 24 24" fill="#F2B705"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 18.3 5.9 20.4l1.4-6.8L2.2 9l6.9-.7L12 2z"/></svg><span id="hudStars">0</span> / 18</div>
       </div>
       <div class="map" id="mapGrid"></div>
@@ -359,11 +365,17 @@
   <section id="screen-q" class="screen">
     <div class="frame">
       <div class="hud">
-        <div class="qhead">
-          <div class="ic" id="qIcon"></div>
-          <div>
-            <div class="stnm" id="qStation"></div>
-            <div class="stsub" id="qStationSub"></div>
+        <div class="hud-left">
+          <button class="home-btn" onclick="goHome()" title="Вернуться на главную">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
+            <span class="lbl">В начало</span>
+          </button>
+          <div class="qhead">
+            <div class="ic" id="qIcon"></div>
+            <div>
+              <div class="stnm" id="qStation"></div>
+              <div class="stsub" id="qStationSub"></div>
+            </div>
           </div>
         </div>
         <div class="stars-hud"><svg viewBox="0 0 24 24" fill="#F2B705"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 18.3 5.9 20.4l1.4-6.8L2.2 9l6.9-.7L12 2z"/></svg><span id="hudStars2">0</span> / 18</div>
@@ -684,6 +696,8 @@ function confetti(){
     setTimeout(()=>c.remove(),5200);
   }
 }
+
+function goHome(){ show('screen-start'); }
 
 function restart(){
   stars=0; unlocked=0; curSt=0; curQ=0; stationStars.fill(0); playedStations.clear();
